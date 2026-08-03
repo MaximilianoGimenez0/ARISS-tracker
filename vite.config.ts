@@ -10,4 +10,12 @@ export default defineConfig({
       '@': path.resolve(__dirname, './src'),
     },
   },
+  // 1. Tell Vite to build workers as ES modules
+  worker: {
+    format: 'es'
+  },
+  // 2. Ensure the main build target supports top-level await
+  build: {
+    target: 'esnext'
+  }
 });

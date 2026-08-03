@@ -1,197 +1,167 @@
-.sidebar {
-  position: fixed;
+.topbar {
+  position: absolute;
   top: 0;
   left: 0;
-  height: 100vh;
-  background: rgba(2, 6, 23, 0.85); /* deep dark slate with transparency */
-  backdrop-filter: blur(16px); /* premium glassmorphism */
-  -webkit-backdrop-filter: blur(16px);
-  color: #f8fafc;
-  display: flex;
-  flex-direction: column;
-  box-sizing: border-box;
-  border-right: 1px solid rgba(255, 255, 255, 0.08);
-  transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1), transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  z-index: 100;
-  padding: 1.5rem 1rem;
-}
-
-.expanded {
-  width: 240px;
-}
-
-.collapsed {
-  width: 80px;
-}
-
-/* Mobile drawer behavior */
-@media (max-width: 768px) {
-  .sidebar {
-    width: 240px !important;
-    transform: translateX(-100%);
-  }
-  
-  .mobileOpen {
-    transform: translateX(0);
-    box-shadow: 10px 0 30px rgba(0, 0, 0, 0.7);
-  }
-}
-
-.brand {
+  width: 100vw;
+  height: 64px;
+  background: linear-gradient(180deg, var(--bg-panel-solid) 0%, rgba(11, 16, 30, 0) 100%);
   display: flex;
   align-items: center;
-  gap: 0.75rem;
-  margin-bottom: 2.5rem;
-  padding: 0 0.5rem;
-  overflow: hidden;
-  white-space: nowrap;
+  justify-content: space-between;
+  padding: 0 2rem;
+  z-index: 100;
+  border-top: 2px solid var(--accent-cyan);
+  box-sizing: border-box;
+}
+
+.topbar::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--accent-cyan-glow), transparent);
+}
+
+.brandContainer {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.logoWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  background: var(--accent-cyan-dim);
+  border: 1px solid var(--accent-cyan);
+  border-radius: 4px;
+  box-shadow: 0 0 10px var(--accent-cyan-glow);
 }
 
 .logoIcon {
-  color: #f97316; /* Orange brand accent */
-  font-size: 1.5rem;
-  flex-shrink: 0;
-  animation: pulseLogo 2.5s infinite ease-in-out;
+  color: var(--accent-cyan);
+  font-size: 1.25rem;
+  animation: pulseLogo 2s infinite ease-in-out;
 }
 
 @keyframes pulseLogo {
-  0%, 100% {
-    filter: drop-shadow(0 0 2px rgba(249, 115, 22, 0.4));
-  }
-  50% {
-    filter: drop-shadow(0 0 8px rgba(249, 115, 22, 0.8));
-  }
+  0%, 100% { opacity: 0.8; }
+  50% { opacity: 1; transform: scale(1.1); }
 }
 
 .brandText {
+  display: flex;
+  flex-direction: column;
+}
+
+.brandTitle {
   font-size: 1rem;
   font-weight: 800;
   text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--text-primary);
+  line-height: 1;
+}
+
+.brandSubtitle {
+  font-size: 0.65rem;
+  color: var(--text-secondary);
   letter-spacing: 0.1em;
-  color: #f8fafc;
-  transition: opacity 0.2s ease;
+  font-family: var(--font-mono);
+  margin-top: 4px;
 }
 
-.collapsed .brandText {
-  opacity: 0;
-  pointer-events: none;
-}
-
-.nav {
+.navContainer {
   display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
-  flex: 1;
+  gap: 2rem;
+  align-items: center;
 }
 
 .link {
   display: flex;
   align-items: center;
-  gap: 1rem;
-  color: #64748b; /* Subdued text */
+  gap: 0.5rem;
+  color: var(--text-muted);
   text-decoration: none;
-  font-size: 0.875rem;
+  font-size: 0.85rem;
   font-weight: 600;
-  padding: 0.75rem;
-  border-radius: 10px;
-  transition: all 0.25s ease;
-  white-space: nowrap;
-  border: 1px solid transparent;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  transition: all 0.3s ease;
+  position: relative;
+  padding: 0.5rem 0;
 }
 
 .linkIcon {
-  font-size: 1.25rem;
-  flex-shrink: 0;
+  font-size: 1rem;
 }
 
-.linkText {
-  transition: opacity 0.2s ease;
+.link::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0%;
+  height: 2px;
+  background: var(--accent-cyan);
+  transition: width 0.3s ease;
+  box-shadow: 0 0 8px var(--accent-cyan);
 }
 
-.collapsed .linkText {
-  opacity: 0;
-  pointer-events: none;
-  display: none; /* Hide to prevent layout shifts */
-}
-
-/* Hover & Active states */
 .link:hover {
-  color: #38bdf8; /* Cyan accent on hover */
-  background: rgba(56, 189, 248, 0.05);
-  border-color: rgba(56, 189, 248, 0.1);
-  transform: translateX(2px);
+  color: var(--text-primary);
 }
 
-.collapsed .link:hover {
-  transform: scale(1.05);
+.link:hover::after {
+  width: 100%;
 }
 
 .linkActive {
-  color: #38bdf8;
-  background: rgba(56, 189, 248, 0.08);
-  border-color: rgba(56, 189, 248, 0.2);
-  box-shadow: 0 0 12px rgba(56, 189, 248, 0.1);
+  color: var(--accent-cyan);
 }
 
-/* Bottom controls */
-.controls {
-  margin-top: auto;
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
+.linkActive::after {
+  width: 100%;
 }
 
-.toggleBtn {
+.systemStatus {
   display: flex;
   align-items: center;
-  justify-content: center;
-  background: rgba(30, 41, 59, 0.4);
-  border: 1px solid rgba(255, 255, 255, 0.06);
-  color: #94a3b8;
-  padding: 0.6rem;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  font-size: 1.1rem;
-  outline: none;
+  gap: 0.5rem;
+  background: var(--status-nominal-dim);
+  border: 1px solid var(--status-nominal);
+  padding: 0.4rem 0.8rem;
+  border-radius: 4px;
+  box-shadow: 0 0 10px rgba(0, 255, 102, 0.2);
 }
 
-.toggleBtn:hover {
-  background: rgba(56, 189, 248, 0.1);
-  border-color: #38bdf8;
-  color: #38bdf8;
-  box-shadow: 0 0 8px rgba(56, 189, 248, 0.2);
+.cpuIcon {
+  color: var(--status-nominal);
+  font-size: 1rem;
 }
 
-.closeBtn {
-  display: none;
-  position: absolute;
-  top: 1.25rem;
-  right: 1.25rem;
-  background: transparent;
-  border: none;
-  color: #94a3b8;
-  font-size: 1.25rem;
-  cursor: pointer;
-  outline: none;
+.statusText {
+  color: var(--status-nominal);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
 }
 
 @media (max-width: 768px) {
-  .closeBtn {
-    display: block;
+  .topbar {
+    padding: 0 1rem;
   }
-}
-
-/* Mobile backdrop */
-.backdrop {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background: rgba(2, 6, 23, 0.6);
-  backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
-  z-index: 90;
-  transition: opacity 0.3s ease;
+  
+  .brandSubtitle, .systemStatus {
+    display: none;
+  }
+  
+  .navContainer {
+    gap: 1rem;
+  }
 }

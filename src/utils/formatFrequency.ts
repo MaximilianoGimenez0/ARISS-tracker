@@ -192,7 +192,7 @@ export const getBestStation = (
   }
 
   console.log(
-    `✅ Mejor estación: ${best.city}, ${best.country} (Distancia real: ${best.distanceFromIss.toFixed(2)} km, Elevación: ${maxElevation.toFixed(2)}°)`
+    `✅ Mejor estación: ${best.city}, ${best.country} (Distancia real: ${best.distanceFromIss?.toFixed(2) ?? "N/A"} km, Elevación: ${maxElevation.toFixed(2)}°)`
   );
 
   return best;

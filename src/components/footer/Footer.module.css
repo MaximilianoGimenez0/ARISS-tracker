@@ -1,65 +1,86 @@
-.footer {
-  position: fixed;
+.bottomBar {
+  position: absolute;
   bottom: 0;
-  right: 0;
   left: 0;
+  width: 100vw;
   height: 48px;
-  background: rgba(2, 6, 23, 0.75); /* transparent background matching theme */
-  backdrop-filter: blur(12px); /* premium glassmorphism */
-  -webkit-backdrop-filter: blur(12px);
-  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  background: linear-gradient(0deg, var(--bg-panel-solid) 0%, rgba(11, 16, 30, 0) 100%);
+  border-bottom: 2px solid var(--accent-cyan);
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 0 2rem;
-  color: #475569; /* Slate-600 */
-  font-size: 0.75rem;
-  font-weight: 500;
-  z-index: 40;
+  z-index: 100;
   box-sizing: border-box;
-  transition: left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-  letter-spacing: 0.05em;
 }
 
-.footerLeft {
+.bottomBar::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--accent-cyan-glow), transparent);
+}
+
+.statusGroup {
   display: flex;
   align-items: center;
-  gap: 1rem;
+  gap: 1.5rem;
 }
 
-.statusIndicator {
+.statusItem {
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  color: #a3f0c9; /* Subdued green */
 }
 
 .statusDot {
-  width: 6px;
-  height: 6px;
-  background-color: #00ff00;
+  width: 8px;
+  height: 8px;
+  background-color: var(--status-nominal);
   border-radius: 50%;
-  box-shadow: 0 0 8px #00ff00;
+  box-shadow: 0 0 10px var(--status-nominal);
   animation: statusPulse 2s infinite ease-in-out;
 }
 
 @keyframes statusPulse {
-  0%, 100% {
-    opacity: 0.4;
-  }
-  50% {
-    opacity: 1;
-  }
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 1; transform: scale(1.2); }
 }
 
-.footerRight {
-  text-transform: uppercase;
+.statusLabel {
+  color: var(--text-secondary);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+}
+
+.divider {
+  width: 1px;
+  height: 16px;
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.versionLabel {
+  color: var(--accent-cyan-dim);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
 }
 
 @media (max-width: 768px) {
-  .footer {
-    left: 0 !important; /* Fixed left on mobile drawer */
-    padding: 0 1.25rem;
+  .bottomBar {
+    padding: 0 1rem;
+    overflow-x: auto;
+  }
+  
+  .statusGroup {
+    gap: 1rem;
+  }
+
+  .divider, .versionLabel {
+    display: none;
   }
 }

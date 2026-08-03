@@ -13,8 +13,8 @@ import { getStationFrequency, getBestStation } from '@/utils/formatFrequency';
 // Tipos e interfaces (No se declaran tipos locales aquí, se importan)
 
 // Constantes
-const COLOR_ACTIVE = '#a3f0c9ff';
-const COLOR_INACTIVE = 'rgba(248, 166, 166, 0.55)';
+const COLOR_ACTIVE = '#00F0FF';
+const COLOR_INACTIVE = 'rgba(112, 0, 255, 0.55)';
 const ROTATION_SPEED = 0.05;
 
 // Componente principal
@@ -39,7 +39,7 @@ const SdrGlobe = () => {
   const [frequency, setFrequency] = useState<string>('145.80000 MHz');
 
   // Hooks personalizados
-  
+
   // hook encargado de mantener la posición de la ISS y su TLE al día (trabajo de fondo).
   useIssPosition(globeRef, issPositionRef, () => setIssAvailable(true));
 
@@ -62,7 +62,7 @@ const SdrGlobe = () => {
    */
   useEffect(() => {
     if (!activeStation) {
-      setFrequency('Fuera de rango'); 
+      setFrequency('Fuera de rango');
       return;
     }
 
@@ -141,7 +141,7 @@ const SdrGlobe = () => {
 
     const globe = new Globe(containerRef.current)
       .globeImageUrl('//unpkg.com/three-globe/example/img/earth-dark.jpg')
-      .bumpImageUrl(null)
+      .bumpImageUrl("")
       .backgroundImageUrl(null)
       .showAtmosphere(true)
       .atmosphereColor('#38bdf8')
@@ -163,28 +163,28 @@ const SdrGlobe = () => {
       .pointLabel((d: any) => {
         const s = d as SdrStation;
         const isActive = s.id === highlightIndexRef.current;
-        const accentColor = isActive ? '#a3f0c9' : '#38bdf8';
+        const accentColor = isActive ? '#00F0FF' : '#7000FF';
         const labelText = isActive ? 'ACTIVE STATION' : 'SDR STATION';
         return `
           <div style="
-            background: rgba(15, 23, 42, 0.85);
+            background: rgba(11, 16, 30, 0.85);
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
             padding: 10px 14px;
-            border-radius: 12px;
-            color: #f8fafc;
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5), 0 0 0 1px ${accentColor}33;
-            font-family: ui-sans-serif, system-ui, -apple-system, sans-serif;
+            border-radius: 4px;
+            color: #F8FAFC;
+            border: 1px solid rgba(0, 240, 255, 0.2);
+            box-shadow: 0 4px 24px -4px rgba(0, 0, 0, 0.5), 0 0 0 1px ${accentColor}33;
+            font-family: 'Inter', system-ui, sans-serif;
             font-size: 12px;
             min-width: 140px;
           ">
-            <div style="font-size: 9px; font-weight: 700; color: ${accentColor}; letter-spacing: 0.05em; margin-bottom: 4px; text-transform: uppercase;">
+            <div style="font-size: 9px; font-weight: 700; color: ${accentColor}; letter-spacing: 0.1em; margin-bottom: 4px; text-transform: uppercase;">
               ${labelText}
             </div>
-            <strong style="font-size: 13px; color: #ffffff;">${s.city}</strong><br/>
-            <span style="color: #94a3b8; font-size: 11px;">${s.country}</span>
-            <div style="margin-top: 6px; border-top: 1px solid rgba(255,255,255,0.06); padding-top: 4px; font-size: 10px; color: #64748b; font-family: monospace;">
+            <strong style="font-size: 13px; color: #ffffff; letter-spacing: 0.05em;">${s.city}</strong><br/>
+            <span style="color: #94A3B8; font-size: 11px;">${s.country}</span>
+            <div style="margin-top: 6px; border-top: 1px solid rgba(255,255,255,0.06); padding-top: 6px; font-size: 10px; color: #00F0FF; font-family: 'Fira Code', monospace;">
               LAT: ${s.lat.toFixed(4)}<br/>
               LNG: ${s.lng.toFixed(4)}
             </div>
@@ -209,25 +209,26 @@ const SdrGlobe = () => {
         const el = document.createElement('div');
         el.className = styles.issMarkerContainer;
         el.innerHTML = `
-          <svg class="${styles.issMarker}" viewBox="0 0 64 64" width="44" height="44" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <circle class="${styles.issRadar}" cx="32" cy="32" r="28" stroke="#f97316" stroke-width="1.5" stroke-opacity="0.6" stroke-dasharray="4 2" />
-            <rect x="28" y="22" width="8" height="20" rx="4" fill="#f97316" />
-            <rect x="22" y="29" width="20" height="6" rx="2" fill="#f97316" />
-            <rect x="6" y="16" width="12" height="10" rx="1" fill="#38bdf8" fill-opacity="0.85" />
-            <rect x="6" y="38" width="12" height="10" rx="1" fill="#38bdf8" fill-opacity="0.85" />
-            <line x1="12" y1="26" x2="12" y2="38" stroke="#f97316" stroke-width="2" />
-            <rect x="46" y="16" width="12" height="10" rx="1" fill="#38bdf8" fill-opacity="0.85" />
-            <rect x="46" y="38" width="12" height="10" rx="1" fill="#38bdf8" fill-opacity="0.85" />
-            <line x1="52" y1="26" x2="52" y2="38" stroke="#f97316" stroke-width="2" />
-            <line x1="18" y1="32" x2="22" y2="32" stroke="#f97316" stroke-width="2" />
-            <line x1="42" y1="32" x2="46" y2="32" stroke="#f97316" stroke-width="2" />
+          <svg class="${styles.issMarker}" viewBox="0 0 64 64" width="48" height="48" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle class="${styles.issRadar}" cx="32" cy="32" r="28" stroke="#00F0FF" stroke-width="1" stroke-opacity="0.8" stroke-dasharray="4 2" />
+            <circle cx="32" cy="32" r="16" stroke="#00F0FF" stroke-width="0.5" stroke-opacity="0.3" />
+            <rect x="28" y="22" width="8" height="20" rx="2" fill="#00F0FF" />
+            <rect x="22" y="29" width="20" height="6" rx="1" fill="#00F0FF" />
+            <rect x="6" y="16" width="14" height="12" rx="1" fill="#1E3A8A" fill-opacity="0.9" stroke="#00F0FF" stroke-width="1" />
+            <rect x="6" y="36" width="14" height="12" rx="1" fill="#1E3A8A" fill-opacity="0.9" stroke="#00F0FF" stroke-width="1" />
+            <line x1="13" y1="28" x2="13" y2="36" stroke="#00F0FF" stroke-width="2" />
+            <rect x="44" y="16" width="14" height="12" rx="1" fill="#1E3A8A" fill-opacity="0.9" stroke="#00F0FF" stroke-width="1" />
+            <rect x="44" y="36" width="14" height="12" rx="1" fill="#1E3A8A" fill-opacity="0.9" stroke="#00F0FF" stroke-width="1" />
+            <line x1="51" y1="28" x2="51" y2="36" stroke="#00F0FF" stroke-width="2" />
+            <line x1="20" y1="32" x2="22" y2="32" stroke="#00F0FF" stroke-width="2" />
+            <line x1="42" y1="32" x2="44" y2="32" stroke="#00F0FF" stroke-width="2" />
             <circle cx="32" cy="32" r="2.5" fill="#ffffff" />
           </svg>
           <div class="${styles.issTooltip}">
-            <strong style="color:#f97316">ISS (Estación Espacial)</strong><br/>
-            Lat: <span class="iss-lat">${d.lat ? d.lat.toFixed(4) : '0.0000'}</span><br/>
-            Lng: <span class="iss-lng">${d.lng ? d.lng.toFixed(4) : '0.0000'}</span><br/>
-            Alt: <span class="iss-alt">${d.alt ? d.alt.toFixed(1) : '0.0'}</span> km
+            <strong style="color:#00F0FF; letter-spacing: 0.1em; text-transform: uppercase;">ISS DATALINK</strong><br/><br/>
+            LAT <span class="iss-lat" style="color: #fff; margin-left: 8px;">${d.lat ? d.lat.toFixed(4) : '0.0000'}</span><br/>
+            LNG <span class="iss-lng" style="color: #fff; margin-left: 8px;">${d.lng ? d.lng.toFixed(4) : '0.0000'}</span><br/>
+            ALT <span class="iss-alt" style="color: #fff; margin-left: 8px;">${d.alt ? d.alt.toFixed(1) : '0.0'}</span> KM
           </div>
         `;
         el.style.pointerEvents = 'auto';
@@ -260,7 +261,7 @@ const SdrGlobe = () => {
       .labelLat('lat')
       .labelLng('lng')
       .labelText('city')
-      .labelColor(() => '#38bdf8')
+      .labelColor(() => '#00F0FF')
       .labelSize(1.4)
       .labelResolution(8)
       .labelAltitude(0);
@@ -268,7 +269,7 @@ const SdrGlobe = () => {
     // RINGS (Pulsos de onda de radio sobre la ISS)
     globe
       .ringsData([])
-      .ringColor(() => 'rgba(56,189,248,0.18)')
+      .ringColor(() => 'rgba(0, 240, 255, 0.15)')
       .ringMaxRadius(3.5)
       .ringPropagationSpeed(0.9)
       .ringRepeatPeriod(2000);
@@ -311,7 +312,7 @@ const SdrGlobe = () => {
    */
   useEffect(() => {
     const globe = globeRef.current;
-    if (!globe) return; 
+    if (!globe) return;
 
     globe.pointColor((d: any) =>
       (d as SdrStation).id === highlightIndex ? COLOR_ACTIVE : COLOR_INACTIVE

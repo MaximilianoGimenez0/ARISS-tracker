@@ -1,43 +1,34 @@
 // Imports
 import styles from './Footer.module.css';
 
-// Tipos e interfaces
-
-/**
- * Propiedades del componente Footer.
- */
-interface FooterProps {
-  /** Indica si la barra lateral izquierda está expandida, para ajustar el margen. */
-  isExpanded: boolean;
-}
-
 // Componente principal
-
 /**
- * Footer: Componente decorativo situado en la parte inferior de la pantalla principal.
- * Muestra el estado del sistema y los créditos. Su posición se ajusta dinámicamente
- * dependiendo del ancho ocupado por la barra lateral de navegación (Navbar).
+ * Footer: Barra de estado del sistema (Bottom HUD).
+ * Muestra el estado operativo de los subsistemas y los datalinks de la ISS.
  */
-const Footer = ({ isExpanded }: FooterProps) => {
+const Footer = () => {
 
-  // Render
   return (
-    <footer
-      className={styles.footer}
-      style={{
-        left: isExpanded ? '240px' : '80px',
-      }}
-    >
-      <div className={styles.footerLeft}>
-        <div className={styles.statusIndicator}>
-          {/* Indicador visual de estado verde/parpadeante mediante CSS */}
-          <span className={styles.statusDot} />
-          <span>SYS ACTIVE // NOMINAL</span>
+    <footer className={styles.bottomBar}>
+      <div className={styles.statusGroup}>
+        <div className={styles.statusItem}>
+          <span className={styles.statusDot}></span>
+          <span className={styles.statusLabel}>UPLINK: SECURE</span>
+        </div>
+        <div className={styles.divider}></div>
+        <div className={styles.statusItem}>
+          <span className={styles.statusDot}></span>
+          <span className={styles.statusLabel}>DATALINK: ACTIVE</span>
+        </div>
+        <div className={styles.divider}></div>
+        <div className={styles.statusItem}>
+          <span className={styles.statusDot}></span>
+          <span className={styles.statusLabel}>SGP4 PROPAGATOR: NOMINAL</span>
         </div>
       </div>
       
-      <div className={styles.footerRight}>
-        <span>© 2026 Maximiliano Giménez</span>
+      <div className={styles.statusGroup}>
+        <div className={styles.versionLabel}>ARISS-TRACKER-OS v9.2</div>
       </div>
     </footer>
   );

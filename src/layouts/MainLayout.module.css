@@ -2,146 +2,30 @@
   display: flex;
   height: 100vh;
   width: 100vw;
-  background-color: #020617;
-  color: #f8fafc;
-  font-family: ui-sans-serif, system-ui, -apple-system, sans-serif;
   overflow: hidden;
-}
-
-.contentContainer {
-  flex: 1;
-  min-width: 0;
-  min-height: 0;
-
-  display: flex;
-  flex-direction: column;
-
-  box-sizing: border-box;
-  transition: margin-left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-
   position: relative;
-
-  padding-bottom: 48px;
-
-  overflow: hidden;
-}
-
-.sidebarExpanded {
-  margin-left: 240px;
-}
-
-.sidebarCollapsed {
-  margin-left: 80px;
-}
-
-@media (max-width: 768px) {
-  .contentContainer {
-    margin-left: 0 !important;
-  }
-}
-
-
-.mobileHeader {
-  display: none;
-  align-items: center;
-  justify-content: space-between;
-
-  padding: 0.75rem 1.25rem;
-
-  background: rgba(15, 23, 42, 0.8);
-
-  backdrop-filter: blur(12px);
-
-  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-
-  position: sticky;
-  top: 0;
-
-  z-index: 80;
-
-  height: 56px;
-
-  box-sizing: border-box;
-}
-
-@media (max-width: 768px) {
-  .mobileHeader {
-    display: flex;
-  }
-}
-
-.menuBtn {
-  background: transparent;
-  border: none;
-
-  color: #38bdf8;
-
-  font-size: 1.5rem;
-
-  cursor: pointer;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  outline: none;
-}
-
-.mobileTitle {
-  font-size: 0.875rem;
-  font-weight: 800;
-
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-
-  color: #f8fafc;
 }
 
 .mainContent {
-  flex: 1;
-
-  min-width: 0;
-  min-height: 0;
-
-  display: flex;
-  flex-direction: column; /* Ensure vertical flex stacking */
-
-  padding: 1.5rem;
-
-  box-sizing: border-box;
-
+  width: 100%;
+  height: 100%;
   overflow: hidden;
-}
-
-@media (max-width: 768px) {
-  .mainContent {
-    padding: 1rem;
-  }
 }
 
 .pageTransition {
-  flex: 1;
-
-  min-width: 0;
-  min-height: 0;
-
-  display: flex;
-  flex-direction: column; /* Ensure vertical flex stacking */
-
-  overflow: hidden;
-
-  animation: fadeSlideIn 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  width: 100%;
+  height: 100%;
 }
 
 @keyframes fadeSlideIn {
   from {
     opacity: 0;
-    transform: translateY(10px);
+    transform: scale(0.98);
   }
 
   to {
     opacity: 1;
-    transform: translateY(0);
+    transform: scale(1);
   }
 }
 
@@ -154,15 +38,14 @@
   left: 0;
   width: 100vw;
   height: 100vh;
-  background: #020617;
+  background: var(--bg-deep-space);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   z-index: 99999;
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-  color: #38bdf8;
-  /* Cyan base */
+  font-family: var(--font-mono);
+  color: var(--accent-cyan);
   padding: 2rem;
   box-sizing: border-box;
 }
@@ -170,16 +53,18 @@
 .bootTerminal {
   width: 100%;
   max-width: 640px;
-  background: rgba(15, 23, 42, 0.6);
-  border: 1px solid rgba(56, 189, 248, 0.2);
-  border-radius: 12px;
+  background: var(--bg-panel);
+  border: var(--hud-border);
+  border-radius: 8px;
   padding: 2rem;
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8), inset 0 0 20px rgba(56, 189, 248, 0.05);
+  box-shadow: var(--hud-shadow);
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
   position: relative;
   overflow: hidden;
+  backdrop-filter: var(--glass-filter);
+  -webkit-backdrop-filter: var(--glass-filter);
 }
 
 .bootTerminal::before {
@@ -189,29 +74,42 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
-  background-size: 100% 4px, 6px 100%;
+  background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%);
+  background-size: 100% 4px;
   pointer-events: none;
   z-index: 10;
+  opacity: 0.5;
 }
 
 .bootHeader {
   display: flex;
   align-items: center;
   gap: 1rem;
-  border-bottom: 1px solid rgba(56, 189, 248, 0.15);
+  border-bottom: 1px solid var(--accent-cyan-dim);
   padding-bottom: 1rem;
 }
 
 .bootLogo {
-  color: #f97316;
+  color: var(--accent-cyan);
   font-size: 2rem;
-  animation: logoSpin 4s linear infinite;
+  animation: logoPulse 2s ease-in-out infinite;
 }
 
-@keyframes logoSpin {
+@keyframes logoPulse {
+  0% {
+    transform: scale(1);
+    opacity: 0.8;
+  }
+
+  50% {
+    transform: scale(1.1);
+    opacity: 1;
+    text-shadow: 0 0 10px var(--accent-cyan);
+  }
+
   100% {
-    transform: rotate(360deg);
+    transform: scale(1);
+    opacity: 0.8;
   }
 }
 
@@ -221,25 +119,27 @@
 }
 
 .bootTitle {
-  font-size: 1.125rem;
-  font-weight: 800;
+  font-size: 1.2rem;
+  font-weight: 700;
   letter-spacing: 0.15em;
-  color: #f8fafc;
+  color: var(--text-primary);
   text-transform: uppercase;
+  font-family: var(--font-sans);
 }
 
 .bootSubtitle {
   font-size: 0.75rem;
-  color: #64748b;
-  letter-spacing: 0.05em;
+  color: var(--text-secondary);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
 }
 
 .bootConsole {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
-  min-height: 180px;
-  font-size: 0.8125rem;
+  min-height: 200px;
+  font-size: 0.85rem;
 }
 
 .consoleLine {
@@ -250,17 +150,18 @@
 }
 
 .consoleLineSuccess {
-  color: #a3f0c9;
+  color: var(--status-nominal);
 }
 
 @keyframes lineFadeIn {
   from {
     opacity: 0;
-    transform: translateY(4px);
+    transform: translateX(-10px);
   }
 
   to {
     opacity: 0.9;
+    transform: translateX(0);
   }
 }
 
@@ -272,17 +173,17 @@
 }
 
 .progressBarTrack {
-  height: 8px;
-  background: rgba(30, 41, 59, 0.8);
-  border: 1px solid rgba(56, 189, 248, 0.1);
-  border-radius: 4px;
+  height: 6px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--accent-cyan-dim);
+  border-radius: 3px;
   overflow: hidden;
 }
 
 .progressBarFill {
   height: 100%;
-  background: linear-gradient(90deg, #38bdf8, #f97316);
-  box-shadow: 0 0 10px rgba(56, 189, 248, 0.5);
+  background: var(--accent-cyan);
+  box-shadow: 0 0 10px var(--accent-cyan-glow);
   transition: width 0.3s ease;
 }
 
@@ -290,10 +191,12 @@
   display: flex;
   justify-content: space-between;
   font-size: 0.75rem;
-  color: #64748b;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
 }
 
 .progressVal {
-  color: #f97316;
+  color: var(--accent-cyan);
   font-weight: 700;
 }
