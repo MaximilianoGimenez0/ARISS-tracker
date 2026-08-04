@@ -10,7 +10,7 @@ const LANGUAGES: { code: Language; label: string; flag: string }[] = [
 ];
 
 const LanguageSelector = () => {
-  const { language, setLanguage, t } = useTranslation();
+  const { language, setLanguage } = useTranslation();
   const [isOpen, setIsOpen] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
 

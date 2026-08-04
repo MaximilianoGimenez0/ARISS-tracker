@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, useEffect, useCallback, useMemo } from 'react';
+import { createContext, useState, useCallback, useMemo } from 'react';
 import type { Language, LanguageContextType } from './types';
 import { getStoredLanguage, setStoredLanguage } from './languageStorage';
 import { es } from './locales/es';
