@@ -1,5 +1,6 @@
 // Imports
 import AppRouter from '@/routes/AppRouter';
+import { LanguageProvider } from '@/i18n';
 
 // Componente principal
 
@@ -10,7 +11,11 @@ import AppRouter from '@/routes/AppRouter';
  */
 const App = () => {
   // Render
-  return <AppRouter />;
+  return (
+    <LanguageProvider>
+      <AppRouter />
+    </LanguageProvider>
+  );
 };
 
 export default App;

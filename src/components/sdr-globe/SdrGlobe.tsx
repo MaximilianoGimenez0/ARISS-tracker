@@ -2,6 +2,7 @@
 import { useEffect, useRef, useState } from 'react';
 import Globe from 'globe.gl';
 import { FiCrosshair } from 'react-icons/fi';
+import { useTranslation } from '@/i18n';
 
 import type { SdrStation } from '@/types/SdrStation';
 import { sdrStations } from '@/utils/sdrStations';
@@ -26,6 +27,13 @@ const ROTATION_SPEED = 0.05;
  * y calcula el efecto Doppler en la frecuencia de transmisión.
  */
 const SdrGlobe = () => {
+  const { t } = useTranslation();
+  const tRef = useRef(t);
+  
+  useEffect(() => {
+    tRef.current = t;
+  }, [t]);
+
   // Refs
   const containerRef = useRef<HTMLDivElement>(null);
   const globeRef = useRef<any>(null);
@@ -62,7 +70,7 @@ const SdrGlobe = () => {
    */
   useEffect(() => {
     if (!activeStation) {
-      setFrequency('Fuera de rango');
+      setFrequency(t('globe.outOfRange'));
       return;
     }
 
@@ -101,7 +109,7 @@ const SdrGlobe = () => {
       clearInterval(dopplerInterval);
       prevIssForDopplerRef.current = null;
     };
-  }, [activeStation]);
+  }, [activeStation, t]);
 
   /**
    * Bucle del Escáner de Visibilidad Espacial.
@@ -164,7 +172,7 @@ const SdrGlobe = () => {
         const s = d as SdrStation;
         const isActive = s.id === highlightIndexRef.current;
         const accentColor = isActive ? '#00F0FF' : '#7000FF';
-        const labelText = isActive ? 'ACTIVE STATION' : 'SDR STATION';
+        const labelText = isActive ? tRef.current('globe.activeStation') : tRef.current('globe.sdrStation');
         return `
           <div style="
             background: rgba(11, 16, 30, 0.85);
@@ -225,7 +233,7 @@ const SdrGlobe = () => {
             <circle cx="32" cy="32" r="2.5" fill="#ffffff" />
           </svg>
           <div class="${styles.issTooltip}">
-            <strong style="color:#00F0FF; letter-spacing: 0.1em; text-transform: uppercase;">ISS DATALINK</strong><br/><br/>
+            <strong style="color:#00F0FF; letter-spacing: 0.1em; text-transform: uppercase;">${tRef.current('globe.issDatalink')}</strong><br/><br/>
             LAT <span class="iss-lat" style="color: #fff; margin-left: 8px;">${d.lat ? d.lat.toFixed(4) : '0.0000'}</span><br/>
             LNG <span class="iss-lng" style="color: #fff; margin-left: 8px;">${d.lng ? d.lng.toFixed(4) : '0.0000'}</span><br/>
             ALT <span class="iss-alt" style="color: #fff; margin-left: 8px;">${d.alt ? d.alt.toFixed(1) : '0.0'}</span> KM
@@ -241,6 +249,7 @@ const SdrGlobe = () => {
         d.element = el;
         return el;
       })
+
       .htmlElementVisibilityModifier((el: any, isVisible: boolean) => {
         el.style.opacity = isVisible ? '1' : '0';
         el.style.pointerEvents = isVisible ? 'auto' : 'none';

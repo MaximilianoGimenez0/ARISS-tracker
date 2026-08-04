@@ -1,6 +1,8 @@
 // Imports
-import { NavLink } from 'react-router-dom';
-import { FiGlobe, FiInfo, FiActivity, FiCpu } from 'react-icons/fi';
+import { NavLink, Link } from 'react-router-dom';
+import { FiGlobe, FiInfo, FiActivity, FiCpu, FiMenu } from 'react-icons/fi';
+import { useTranslation } from '@/i18n';
+import LanguageSelector from '@/components/language-selector/LanguageSelector';
 
 import styles from './Navbar.module.css';
 
@@ -16,38 +18,49 @@ interface NavbarProps {
 /**
  * Navbar: Command bar superior estilo HUD (Heads-Up Display).
  */
-const Navbar = ({ }: NavbarProps) => {
+const Navbar = ({ isMobileOpen, setIsMobileOpen }: NavbarProps) => {
+  const { t } = useTranslation();
 
   const linkClassName = ({ isActive }: { isActive: boolean }) =>
     `${styles.link} ${isActive ? styles.linkActive : ''}`;
 
   return (
     <header className={styles.topbar}>
-      <div className={styles.brandContainer}>
+      <button 
+        className={styles.burgerButton}
+        onClick={() => setIsMobileOpen?.(!isMobileOpen)}
+        aria-label="Menu"
+      >
+        <FiMenu />
+      </button>
+
+      <Link to="/tracker" className={styles.brandContainer}>
         <div className={styles.logoWrapper}>
           <FiActivity className={styles.logoIcon} />
         </div>
         <div className={styles.brandText}>
-          <span className={styles.brandTitle}>ARISS-TRACKER</span>
-          <span className={styles.brandSubtitle}>SYSTEM.CTRL</span>
+          <span className={styles.brandTitle}>{t('navbar.brandTitle')}</span>
+          <span className={styles.brandSubtitle}>{t('navbar.brandSubtitle')}</span>
         </div>
-      </div>
+      </Link>
 
-      <nav className={styles.navContainer}>
-        <NavLink to="/tracker" className={linkClassName}>
+      <nav className={`${styles.navContainer} ${isMobileOpen ? styles.navContainerOpen : ''}`}>
+        <NavLink to="/tracker" className={linkClassName} onClick={() => setIsMobileOpen?.(false)}>
           <FiGlobe className={styles.linkIcon} />
-          <span className={styles.linkText}>TRACKER</span>
+          <span className={styles.linkText}>{t('navbar.tracker')}</span>
         </NavLink>
 
-        <NavLink to="/" className={linkClassName}>
+        <NavLink to="/" className={linkClassName} onClick={() => setIsMobileOpen?.(false)}>
           <FiInfo className={styles.linkIcon} />
-          <span className={styles.linkText}>MISSION INFO</span>
+          <span className={styles.linkText}>{t('navbar.missionInfo')}</span>
         </NavLink>
       </nav>
 
+      <LanguageSelector />
+
       <div className={styles.systemStatus}>
         <FiCpu className={styles.cpuIcon} />
-        <span className={styles.statusText}>SYS.ONLINE</span>
+        <span className={styles.statusText}>{t('navbar.systemOnline')}</span>
       </div>
     </header>
   );

@@ -1,6 +1,7 @@
 // Imports
 import { useState } from 'react';
 import { FiRadio, FiCopy, FiCheck } from 'react-icons/fi';
+import { useTranslation } from '@/i18n';
 
 import type { SdrStation } from '@/types/SdrStation';
 import styles from './SdrInfoPanel.module.css';
@@ -30,6 +31,7 @@ interface SdrInfoPanelProps {
  * Provee la funcionalidad de copiar dicha frecuencia al portapapeles.
  */
 const SdrInfoPanel = ({ station, frequency }: SdrInfoPanelProps) => {
+  const { t } = useTranslation();
   // Estados
   const [copied, setCopied] = useState(false);
 
@@ -73,9 +75,9 @@ const SdrInfoPanel = ({ station, frequency }: SdrInfoPanelProps) => {
             </div>
 
             <div className={styles.infoContent}>
-              <span className={styles.label}>Estación</span>
+              <span className={styles.label}>{t('panel.station')}</span>
               <span className={styles.value}>
-                Ninguna estación en rango
+                {t('panel.noStation')}
               </span>
             </div>
           </div>
@@ -97,7 +99,7 @@ const SdrInfoPanel = ({ station, frequency }: SdrInfoPanelProps) => {
           </div>
 
           <div className={styles.infoContent}>
-            <span className={styles.label}>Estación</span>
+            <span className={styles.label}>{t('panel.station')}</span>
 
             <span className={styles.value}>
               {station.city}, {station.country}
@@ -109,7 +111,7 @@ const SdrInfoPanel = ({ station, frequency }: SdrInfoPanelProps) => {
 
         <div className={styles.frequencySection}>
           <div className={styles.infoContent}>
-            <span className={styles.label}>Frecuencia</span>
+            <span className={styles.label}>{t('panel.frequency')}</span>
 
             <div className={styles.frequencyDisplay}>
               <span className={styles.frequencyValue}>{frequency} Mhz</span>
@@ -129,7 +131,7 @@ const SdrInfoPanel = ({ station, frequency }: SdrInfoPanelProps) => {
 
         <div className={styles.frequencySection}>
           <div className={styles.infoContent}>
-            <span className={styles.label}>Distancia</span>
+            <span className={styles.label}>{t('panel.distance')}</span>
             <div className={styles.frequencyDisplay}>
               <span className={styles.frequencyValue}>{station.distanceFromIss?.toFixed(2) || '0.00'} km</span>
             </div>
@@ -138,7 +140,7 @@ const SdrInfoPanel = ({ station, frequency }: SdrInfoPanelProps) => {
 
         <div className={styles.frequencySection}>
           <div className={styles.infoContent}>
-            <span className={styles.label}>Elevación</span>
+            <span className={styles.label}>{t('panel.elevation')}</span>
             <div className={styles.frequencyDisplay}>
               <span className={styles.frequencyValue}>{station.elevation?.toFixed(2) || '0.00'}°</span>
             </div>

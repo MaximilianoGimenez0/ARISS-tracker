@@ -7,8 +7,8 @@
   background: linear-gradient(180deg, var(--bg-panel-solid) 0%, rgba(11, 16, 30, 0) 100%);
   display: flex;
   align-items: center;
-  justify-content: space-between;
   padding: 0 2rem;
+  gap: 1.5rem;
   z-index: 100;
   border-top: 2px solid var(--accent-cyan);
   box-sizing: border-box;
@@ -24,10 +24,28 @@
   background: linear-gradient(90deg, transparent, var(--accent-cyan-glow), transparent);
 }
 
+.burgerButton {
+  display: none;
+  background: none;
+  border: none;
+  color: var(--text-primary);
+  cursor: pointer;
+  padding: 0.5rem;
+  font-size: 1.5rem;
+  transition: color 0.2s ease;
+}
+
+.burgerButton:hover {
+  color: var(--accent-cyan);
+}
+
 .brandContainer {
   display: flex;
   align-items: center;
   gap: 1rem;
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
 }
 
 .logoWrapper {
@@ -79,6 +97,9 @@
   display: flex;
   gap: 2rem;
   align-items: center;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
 }
 
 .link {
@@ -157,11 +178,47 @@
     padding: 0 1rem;
   }
   
+  .burgerButton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
   .brandSubtitle, .systemStatus {
     display: none;
   }
   
   .navContainer {
+    display: none;
+    position: absolute;
+    top: 64px;
+    left: 0;
+    width: 100vw;
+    background: rgba(11, 16, 30, 0.95);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 2px solid var(--accent-cyan);
+    flex-direction: column;
+    padding: 1rem 0;
+    transform: none;
     gap: 1rem;
+    margin: 0;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  }
+
+  .navContainerOpen {
+    display: flex;
+    animation: slideDown 0.3s ease;
+  }
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }

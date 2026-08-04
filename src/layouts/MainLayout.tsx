@@ -2,6 +2,7 @@
 import { useEffect, useState } from 'react';
 import { Outlet, useLocation } from 'react-router-dom';
 import { FiActivity } from 'react-icons/fi';
+import { useTranslation } from '@/i18n';
 
 import Navbar from '@/components/navbar/Navbar';
 import Footer from '@/components/footer/Footer';
@@ -14,6 +15,7 @@ import styles from './MainLayout.module.css';
  * Gestiona el marco visual general, ahora como un dashboard de pantalla completa (HUD).
  */
 const MainLayout = () => {
+  const { t } = useTranslation();
   // Valores derivados
   const location = useLocation();
 
@@ -33,13 +35,13 @@ const MainLayout = () => {
    */
   useEffect(() => {
     const logs = [
-      '[SYSTEM] Initializing kernel module ARISS-OS v9.2...',
-      '[SATLINK] Uplink established with NORAD TLE database...',
-      '[TLE-ENG] SGP4 orbital propagator synchronized...',
-      '[GROUND] Handshake complete: 10 active SDR ground stations...',
-      '[MAPS] Rendering 3D Earth topology projection...',
-      '[ISS] Telemetry datalink active: Alt ~420km...',
-      '[MISSION] Connection secure. Welcome to Mission Control.'
+      t('boot.logs.init'),
+      t('boot.logs.uplink'),
+      t('boot.logs.tle'),
+      t('boot.logs.ground'),
+      t('boot.logs.maps'),
+      t('boot.logs.iss'),
+      t('boot.logs.mission')
     ];
 
     let currentStep = 0;
@@ -61,7 +63,7 @@ const MainLayout = () => {
     }, 350);
 
     return () => clearInterval(interval);
-  }, []);
+  }, [t]);
 
   // Render
 
@@ -73,8 +75,8 @@ const MainLayout = () => {
             <FiActivity className={styles.bootLogo} />
             
             <div className={styles.bootTitleContainer}>
-              <span className={styles.bootTitle}>ARISS-TRACKER-OS</span>
-              <span className={styles.bootSubtitle}>Mission Control v9.2</span>
+              <span className={styles.bootTitle}>{t('boot.title')}</span>
+              <span className={styles.bootSubtitle}>{t('boot.subtitle')}</span>
             </div>
           </header>
 
@@ -82,7 +84,7 @@ const MainLayout = () => {
             {bootLogs.map((log, idx) => {
               const isSuccess =
                 typeof log === 'string' &&
-                (log.includes('secure') || log.includes('active') || log.includes('synchronized') || log.includes('complete'));
+                (log.includes('secure') || log.includes('active') || log.includes('synchronized') || log.includes('complete') || log.includes('seguro') || log.includes('activo') || log.includes('sincronizado') || log.includes('completo'));
                 
               return (
                 <div
@@ -104,7 +106,7 @@ const MainLayout = () => {
             </div>
             
             <div className={styles.progressText}>
-              <span>System Initialization</span>
+              <span>{t('boot.initStatus')}</span>
               <span className={styles.progressVal}>{bootProgress}%</span>
             </div>
           </div>

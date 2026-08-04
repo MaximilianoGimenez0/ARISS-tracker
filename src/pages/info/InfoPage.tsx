@@ -1,6 +1,7 @@
 // Imports
 import styles from './InfoPage.module.css';
 import { LuBinary, LuActivity, LuGlobe, LuEye, LuRadioReceiver } from 'react-icons/lu';
+import { useTranslation } from '@/i18n';
 
 // Componente principal
 
@@ -11,6 +12,7 @@ import { LuBinary, LuActivity, LuGlobe, LuEye, LuRadioReceiver } from 'react-ico
  * junto al cálculo del efecto Doppler.
  */
 const InfoPage = () => {
+    const { t } = useTranslation();
 
     // Render
     return (
@@ -20,7 +22,7 @@ const InfoPage = () => {
                 {/* 1. Sección Hero (Encabezado principal) */}
                 <header className={styles.hero}>
                     <h1 className={styles.title}>
-                        Ingeniería detrás del <span className={styles.accentOrange}>Rastreo</span>
+                        {t('info.hero.title')} <span className={styles.accentOrange}>{t('info.hero.titleAccent')}</span>
                     </h1>
                 </header>
 
@@ -28,13 +30,11 @@ const InfoPage = () => {
                 <section className={styles.card}>
                     <div className={styles.cardHeader}>
                         <div className={styles.iconWrapper}><LuBinary size={28} /></div>
-                        <h2 className={styles.cardTitle}>1. Conjunto de Elementos de Dos Líneas (TLE)</h2>
+                        <h2 className={styles.cardTitle}>{t('info.tle.title')}</h2>
                     </div>
 
                     <p className={styles.cardText}>
-                        El rastreo comienza con un TLE (Two-Line Element), un formato de datos estándar codificado
-                        que describe las variables orbitales (elementos keplerianos) de un satélite en un momento
-                        específico (época). A partir de estos parámetros, podemos extrapolar su posición futura.
+                        {t('info.tle.p1')}
                     </p>
 
                     <div className={styles.tleTerminal}>
@@ -48,8 +48,8 @@ const InfoPage = () => {
                     </div>
 
                     <div className={styles.tagContainer}>
-                        <span className={styles.tag}>NORAD ID (25544)</span>
-                        <span className={`${styles.tag} ${styles.tagBlue}`}>Inclinación (51.6418°)</span>
+                        <span className={styles.tag}>{t('info.tle.tagNorad')}</span>
+                        <span className={`${styles.tag} ${styles.tagBlue}`}>{t('info.tle.tagInc')}</span>
                     </div>
                 </section>
 
@@ -58,17 +58,14 @@ const InfoPage = () => {
                     <section className={styles.card}>
                         <div className={styles.cardHeader}>
                             <div className={styles.iconWrapper}><LuActivity size={28} /></div>
-                            <h2 className={styles.cardTitle}>2. Propagación Orbital</h2>
+                            <h2 className={styles.cardTitle}>{t('info.sgp4.title')}</h2>
                         </div>
 
                         <p className={styles.cardText}>
-                            Los satélites en Órbita Terrestre Baja (LEO) sufren perturbaciones debido a la gravedad
-                            de la Luna, el Sol y el achatamiento de la Tierra, además del arrastre atmosférico.
+                            {t('info.sgp4.p1')}
                         </p>
                         <p className={styles.cardText}>
-                            El modelo <span className={styles.accentOrange}>SGP4 (Simplified General Perturbations-4)</span> toma
-                            el TLE y resuelve las ecuaciones de movimiento para predecir los vectores de estado (posición y velocidad)
-                            exactos del satélite en el espacio en cualquier instante de tiempo.
+                            {t('info.sgp4.p2Start')} <span className={styles.accentOrange}>{t('info.sgp4.p2Accent')}</span> {t('info.sgp4.p2End')}
                         </p>
                     </section>
 
@@ -76,20 +73,19 @@ const InfoPage = () => {
                     <section className={styles.card}>
                         <div className={styles.cardHeader}>
                             <div className={styles.iconWrapper}><LuGlobe size={28} /></div>
-                            <h2 className={styles.cardTitle}>3. Geodésicas a ECEF</h2>
+                            <h2 className={styles.cardTitle}>{t('info.ecef.title')}</h2>
                         </div>
 
                         <p className={styles.cardText}>
-                            Para calcular hacia dónde mirar, convertimos las coordenadas de nuestra estación terrena
-                            (Latitud, Longitud, Altitud) a un sistema cartesiano 3D llamado <span className={styles.strong}>ECEF</span> (Earth-Centered, Earth-Fixed).
+                            {t('info.ecef.p1Start')} <span className={styles.strong}>{t('info.ecef.p1Strong')}</span> {t('info.ecef.p1End')}
                         </p>
                         <p className={styles.cardText}>
-                            Al tener tanto el satélite como al observador en coordenadas (X, Y, Z), calculamos el <span className={styles.strong}>Vector Relativo</span> (distancia y dirección en el espacio).
+                            {t('info.ecef.p2Start')} <span className={styles.strong}>{t('info.ecef.p2Strong')}</span> {t('info.ecef.p2End')}
                         </p>
 
                         <div className={styles.mathBlock}>
                             <div className={styles.formula}>
-                                Vector Relativo = Posición Satélite − Posición Observador
+                                {t('info.ecef.formula')}
                             </div>
                         </div>
                     </section>
@@ -100,23 +96,21 @@ const InfoPage = () => {
                     <section className={styles.card}>
                         <div className={styles.cardHeader}>
                             <div className={styles.iconWrapper}><LuEye size={28} /></div>
-                            <h2 className={styles.cardTitle}>4. Línea de Vista (LOS)</h2>
+                            <h2 className={styles.cardTitle}>{t('info.los.title')}</h2>
                         </div>
 
                         <p className={styles.cardText}>
-                            Mediante trigonometría esférica y el producto escalar entre el vector del observador y
-                            el vector relativo, obtenemos los ángulos de apuntamiento: <span className={styles.strong}>Azimut</span> (rumbo) y <span className={styles.strong}>Elevación</span>.
+                            {t('info.los.p1Start')} <span className={styles.strong}>{t('info.los.p1Azimut')}</span> {t('info.los.p1Mid')} <span className={styles.strong}>{t('info.los.p1Elev')}</span>{t('info.los.p1End')}
                         </p>
 
                         <div className={styles.mathBlock}>
                             <div className={styles.formula}>
-                                Elevación &gt; 0° ⟹ LOS (Visible)
+                                {t('info.los.formula')}
                             </div>
                         </div>
 
                         <p className={styles.cardText}>
-                            Si la elevación es mayor a cero, significa que el satélite ha superado el horizonte
-                            topográfico y tenemos contacto visual o de radio directo (Line of Sight).
+                            {t('info.los.p2')}
                         </p>
                     </section>
 
@@ -124,16 +118,14 @@ const InfoPage = () => {
                     <section className={styles.card}>
                         <div className={styles.cardHeader}>
                             <div className={styles.iconWrapper}><LuRadioReceiver size={28} /></div>
-                            <h2 className={styles.cardTitle}>5. Corrección Doppler</h2>
+                            <h2 className={styles.cardTitle}>{t('info.doppler.title')}</h2>
                         </div>
 
                         <p className={styles.cardText}>
-                            La ISS se mueve a ~28,000 km/h. Debido a esta enorme velocidad radial relativa,
-                            las frecuencias de radio se comprimen al acercarse (<span className={styles.accentBlue}>Blue Shift</span>) y se expanden al alejarse (<span className={styles.accentOrange}>Red Shift</span>).
+                            {t('info.doppler.p1Start')}<span className={styles.accentBlue}>{t('info.doppler.p1Blue')}</span>{t('info.doppler.p1Mid')}<span className={styles.accentOrange}>{t('info.doppler.p1Orange')}</span>{t('info.doppler.p1End')}
                         </p>
                         <p className={styles.cardText}>
-                            Para recibir la telemetría (ej. en 145.800 MHz VHF), el sistema debe compensar
-                            constantemente esta desviación para mantener la sintonía en el receptor SDR en tiempo real.
+                            {t('info.doppler.p2')}
                         </p>
 
                         <div className={styles.mathBlock}>
@@ -149,3 +141,4 @@ const InfoPage = () => {
 };
 
 export default InfoPage;
+
