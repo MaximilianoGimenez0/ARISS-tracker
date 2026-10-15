@@ -1,0 +1,224 @@
+.topbar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 64px;
+  background: linear-gradient(180deg, var(--bg-panel-solid) 0%, rgba(11, 16, 30, 0) 100%);
+  display: flex;
+  align-items: center;
+  padding: 0 2rem;
+  gap: 1.5rem;
+  z-index: 100;
+  border-top: 2px solid var(--accent-cyan);
+  box-sizing: border-box;
+}
+
+.topbar::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--accent-cyan-glow), transparent);
+}
+
+.burgerButton {
+  display: none;
+  background: none;
+  border: none;
+  color: var(--text-primary);
+  cursor: pointer;
+  padding: 0.5rem;
+  font-size: 1.5rem;
+  transition: color 0.2s ease;
+}
+
+.burgerButton:hover {
+  color: var(--accent-cyan);
+}
+
+.brandContainer {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+}
+
+.logoWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  background: var(--accent-cyan-dim);
+  border: 1px solid var(--accent-cyan);
+  border-radius: 4px;
+  box-shadow: 0 0 10px var(--accent-cyan-glow);
+}
+
+.logoIcon {
+  color: var(--accent-cyan);
+  font-size: 1.25rem;
+  animation: pulseLogo 2s infinite ease-in-out;
+}
+
+@keyframes pulseLogo {
+  0%, 100% { opacity: 0.8; }
+  50% { opacity: 1; transform: scale(1.1); }
+}
+
+.brandText {
+  display: flex;
+  flex-direction: column;
+}
+
+.brandTitle {
+  font-size: 1rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--text-primary);
+  line-height: 1;
+}
+
+.brandSubtitle {
+  font-size: 0.65rem;
+  color: var(--text-secondary);
+  letter-spacing: 0.1em;
+  font-family: var(--font-mono);
+  margin-top: 4px;
+}
+
+.navContainer {
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.link {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--text-muted);
+  text-decoration: none;
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  transition: all 0.3s ease;
+  position: relative;
+  padding: 0.5rem 0;
+}
+
+.linkIcon {
+  font-size: 1rem;
+}
+
+.link::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0%;
+  height: 2px;
+  background: var(--accent-cyan);
+  transition: width 0.3s ease;
+  box-shadow: 0 0 8px var(--accent-cyan);
+}
+
+.link:hover {
+  color: var(--text-primary);
+}
+
+.link:hover::after {
+  width: 100%;
+}
+
+.linkActive {
+  color: var(--accent-cyan);
+}
+
+.linkActive::after {
+  width: 100%;
+}
+
+.systemStatus {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: var(--status-nominal-dim);
+  border: 1px solid var(--status-nominal);
+  padding: 0.4rem 0.8rem;
+  border-radius: 4px;
+  box-shadow: 0 0 10px rgba(0, 255, 102, 0.2);
+}
+
+.cpuIcon {
+  color: var(--status-nominal);
+  font-size: 1rem;
+}
+
+.statusText {
+  color: var(--status-nominal);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+}
+
+@media (max-width: 768px) {
+  .topbar {
+    padding: 0 1rem;
+  }
+  
+  .burgerButton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .brandSubtitle, .systemStatus {
+    display: none;
+  }
+  
+  .navContainer {
+    display: none;
+    position: absolute;
+    top: 64px;
+    left: 0;
+    width: 100vw;
+    background: rgba(11, 16, 30, 0.95);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 2px solid var(--accent-cyan);
+    flex-direction: column;
+    padding: 1rem 0;
+    transform: none;
+    gap: 1rem;
+    margin: 0;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  }
+
+  .navContainerOpen {
+    display: flex;
+    animation: slideDown 0.3s ease;
+  }
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

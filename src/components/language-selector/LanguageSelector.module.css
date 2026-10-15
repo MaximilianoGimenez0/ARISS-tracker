@@ -1,0 +1,145 @@
+.container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  margin-left: auto;
+}
+
+.button {
+  background: rgba(11, 16, 30, 0.6);
+  border: 1px solid rgba(0, 240, 255, 0.2);
+  border-radius: 6px;
+  color: #F8FAFC;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 12px;
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.button:hover,
+.button[aria-expanded="true"] {
+  border-color: rgba(0, 240, 255, 0.5);
+  background: rgba(0, 240, 255, 0.05);
+}
+
+.icon {
+  font-size: 14px;
+  color: #94A3B8;
+  transition: color 0.2s ease;
+}
+
+.button:hover .icon,
+.button[aria-expanded="true"] .icon {
+  color: #00F0FF;
+}
+
+.code {
+  color: #94A3B8;
+  letter-spacing: 0.05em;
+  transition: color 0.2s ease;
+}
+
+.button:hover .code,
+.button[aria-expanded="true"] .code {
+  color: #00F0FF;
+}
+
+.chevron {
+  font-size: 14px;
+  color: #94A3B8;
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.button:hover .chevron,
+.button[aria-expanded="true"] .chevron {
+  color: #00F0FF;
+}
+
+.chevronOpen {
+  transform: rotate(180deg);
+}
+
+.dropdownMenu {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  background: rgba(11, 16, 30, 0.95);
+  border: 1px solid rgba(0, 240, 255, 0.2);
+  border-radius: 8px;
+  padding: 6px;
+  min-width: 140px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  z-index: 100;
+  animation: fadeIn 0.2s ease;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.option {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 12px;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+  background: transparent;
+  border: none;
+  width: 100%;
+  text-align: left;
+}
+
+.option:hover {
+  background: rgba(0, 240, 255, 0.1);
+}
+
+.option.active {
+  background: rgba(0, 240, 255, 0.15);
+}
+
+.optionFlag {
+  font-size: 14px;
+  line-height: 1;
+  color: white;
+}
+
+.optionLabel {
+  color: #F8FAFC;
+  font-size: 13px;
+  font-weight: 500;
+  flex: 1;
+}
+
+.option.active .optionLabel {
+  color: #00F0FF;
+}
+
+.check {
+  color: #00F0FF;
+  font-size: 14px;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

@@ -1,0 +1,66 @@
+# Dependencies
+node_modules/
+.pnpm-store/
+.npm/
+
+# Production build outputs
+dist/
+dist-ssr/
+*.tsbuildinfo
+.vite/
+
+# Firebase Hosting & CLI Cache
+.firebase/
+firebase-debug.log*
+firestore-debug.log*
+ui-debug.log*
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+!.env.example
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Test coverage
+coverage/
+*.lcov
+
+# Editor & IDE files
+.vscode/*
+!.vscode/extensions.json
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+*.swp
+*.swo
+*~
+
+# Operating System files
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+ehthumbs_vista.db
+[Dd]esktop.ini
+
+# Temporary files & local overrides
+*.local
+
+# AI Agent instructions
+AGENTS.md
+agents.md

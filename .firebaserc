@@ -1,0 +1,15 @@
+{
+  "projects": {
+    "default": "portfolio-d3811"
+  },
+  "targets": {
+    "portfolio-d3811": {
+      "hosting": {
+        "ariss-tracker": [
+          "ariss-tracker"
+        ]
+      }
+    }
+  },
+  "etags": {}
+}

@@ -1,0 +1,86 @@
+.bottomBar {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100vw;
+  height: 48px;
+  background: linear-gradient(0deg, var(--bg-panel-solid) 0%, rgba(11, 16, 30, 0) 100%);
+  border-bottom: 2px solid var(--accent-cyan);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 2rem;
+  z-index: 100;
+  box-sizing: border-box;
+}
+
+.bottomBar::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--accent-cyan-glow), transparent);
+}
+
+.statusGroup {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.statusItem {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.statusDot {
+  width: 8px;
+  height: 8px;
+  background-color: var(--status-nominal);
+  border-radius: 50%;
+  box-shadow: 0 0 10px var(--status-nominal);
+  animation: statusPulse 2s infinite ease-in-out;
+}
+
+@keyframes statusPulse {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 1; transform: scale(1.2); }
+}
+
+.statusLabel {
+  color: var(--text-secondary);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+}
+
+.divider {
+  width: 1px;
+  height: 16px;
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.versionLabel {
+  color: var(--accent-cyan-dim);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+}
+
+@media (max-width: 768px) {
+  .bottomBar {
+    padding: 0 1rem;
+    overflow-x: auto;
+  }
+  
+  .statusGroup {
+    gap: 1rem;
+  }
+
+  .divider, .versionLabel {
+    display: none;
+  }
+}
