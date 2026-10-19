@@ -1,4 +1,4 @@
-# 🛰️ ARISS Tracker
+# ARISS Tracker
 
 > Aplicación web en tiempo real para el rastreo de la Estación Espacial Internacional (ISS), cálculo de la mejor estación terrestre (ARISS / WebSDR) con la que contactar y cálculo dinámico del efecto Doppler con visualización en 3d del globo terráqueo.
 
@@ -12,21 +12,21 @@
 
 ---
 
-## 🔭 Características Principales
+## Características Principales
 
-* **🌍 Visualización 3D a 60 FPS:** Renderizado interactivo del globo terráqueo con Three.js y Globe.gl, proyección de la órbita terrestre y suavizado cinemático continuo.
-* **🛰️ Propagación Orbital SGP4 en Vivo:** Descarga periódica de Two-Line Elements (TLE) oficiales desde ARISS (`live.ariss.org`), transformando coordenadas inerciales ECI a geodésicas en tiempo real.
-* **📡 Selección Inteligente de Estaciones WebSDR:** Evaluación topocéntrica continua sobre una red global de estaciones terrestres para enlazar con la de mayor elevación sobre el horizonte local (Línea de Vista / LOS $> 0^\circ$).
-* **📻 Simulación de Efecto Doppler:** Cálculo numérico instantáneo de la velocidad radial respecto a la estación activa para corregir la frecuencia nominal de downlink (145.800 MHz VHF).
-* **⏱️ Alto Rendimiento sin Sobrecarga:** Actualización de posición a 150 ms mediante mutación directa a WebGL y DOM con `useRef`, evitando re-renders innecesarios en el ciclo de React.
-* **💬 Internacionalización Nativa:** Sistema de i18n tipado en tiempo de compilación con soporte completo para Español (`es`), Inglés (`en`) y Portugués (`pt`).
-* **🎛️ Arquitectura Dual Layout:** 
+* ** Visualización 3D a 60 FPS:** Renderizado interactivo del globo terráqueo con Three.js y Globe.gl, proyección de la órbita terrestre y suavizado cinemático continuo.
+* ** Propagación Orbital SGP4 en Vivo:** Descarga periódica de Two-Line Elements (TLE) oficiales desde ARISS (`live.ariss.org`), transformando coordenadas inerciales ECI a geodésicas en tiempo real.
+* ** Selección Inteligente de Estaciones WebSDR:** Evaluación topocéntrica continua sobre una red global de estaciones terrestres para enlazar con la de mayor elevación sobre el horizonte local (Línea de Vista / LOS $> 0^\circ$).
+* ** Simulación de Efecto Doppler:** Cálculo numérico instantáneo de la velocidad radial respecto a la estación activa para corregir la frecuencia nominal de downlink (145.800 MHz VHF).
+* ** Alto Rendimiento sin Sobrecarga:** Actualización de posición a 150 ms mediante mutación directa a WebGL y DOM con `useRef`, evitando re-renders innecesarios en el ciclo de React.
+* ** Internacionalización Nativa:** Sistema de i18n tipado en tiempo de compilación con soporte completo para Español (`es`), Inglés (`en`) y Portugués (`pt`).
+* ** Arquitectura Dual Layout:** 
   * `/tracker`: Cabina de visualización HUD a pantalla completa con simulación de terminal de arranque (*Boot Sequence*).
-  * `/`: Vista documental y pedagógica con los fundamentos físicos, matemáticos y de radiofrecuencia.
+  * `/`: Vista documental y explicativa con los fundamentos físicos, matemáticos y de radiofrecuencia.
 
 ---
 
-## 🔄 Flujo de Datos
+## Flujo de Datos
 
 ```mermaid
 flowchart TD
@@ -55,7 +55,7 @@ flowchart TD
 
 ---
 
-## 💻 Puesta en Marcha
+## Puesta en Marcha
 
 ### Requisitos Previos
 * **Node.js:** Versión 18+ (recomendado v20 LTS o superior)
@@ -90,17 +90,17 @@ npm run preview  # Previsualiza localmente la compilación de dist/
 
 ---
 
-## ⚙️ Stack Tecnológico
+## Stack Tecnológico
 
 * **Frontend & UI:** React 19, TypeScript ~6.0, React Router DOM v7, React Icons.
 * **Motor 3D & Física:** Three.js, Globe.gl, `satellite.js` (SGP4/SDP4).
-* **Estilizado:** CSS Modules + Aerospace HUD Design System (Tokens globales en CSS).
+* **Estilizado:** CSS Modules + Tokens globales en CSS.
 * **Tooling:** Vite 8, Oxlint.
 * **Hosting:** Firebase Hosting.
 
 ---
 
-## 👨‍💻 Autor & Contacto
+## Autor & Contacto
 
 * **Maximiliano Giménez**
 * **Portfolio:** [maxigimenez.com.ar](https://maxigimenez.com.ar)
