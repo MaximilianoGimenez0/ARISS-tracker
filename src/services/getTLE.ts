@@ -1,20 +1,8 @@
-// Imports
 import { ISS_TLE_URL, TLE_FETCH_TIMEOUT_MS } from '@/config/constants';
 
-// Funciones principales
-
 /**
- * getTLE: Realiza una solicitud HTTP a la API pública de ARISS (Amateur Radio on the ISS)
- * para obtener el conjunto de elementos orbitales (TLE) más reciente en formato de texto puro.
- * 
- * Implementa un timeout de 5 segundos mediante AbortController.
- * 
- * Este TLE es la "semilla" matemática obligatoria que necesita el propagador SGP4
- * para calcular la órbita presente y futura.
- * 
- * @param {number} [timeoutMs=TLE_FETCH_TIMEOUT_MS] Tiempo máximo de espera en milisegundos.
- * @returns {Promise<string>} Una promesa que se resuelve con el contenido bruto (raw text) del TLE.
- * @throws Lanzará un error si la solicitud de red falla, se agota el timeout o el servidor de ARISS está caído.
+ * Fetches raw Two-Line Elements (TLE) from the ARISS public endpoint.
+ * Throws if the request fails or exceeds the timeout.
  */
 export const getTLE = async (timeoutMs: number = TLE_FETCH_TIMEOUT_MS): Promise<string> => {
   const controller = new AbortController();

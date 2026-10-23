@@ -1,12 +1,7 @@
-// Imports
 import type { SdrStation } from '@/types/SdrStation';
 
-// Constantes
-
 /**
- * Catálogo estático de Receptores de Radio Definidos por Software (SDR) desplegados por el mundo.
- * La aplicación usará estas ubicaciones terrestres como nodos para calcular el rango inclinado,
- * elevación y Doppler cuando la ISS transite sobre ellos.
+ * Curated list of WebSDR ground stations used for line-of-sight tracking and Doppler calculations.
  */
 export const sdrStations: SdrStation[] = [
   {
