@@ -11,7 +11,7 @@ export const getStoredLanguage = (): Language => {
   } catch (error) {
     console.error('Error reading language from localStorage', error);
   }
-  return 'es'; // default
+  return 'es';
 };
 
 export const setStoredLanguage = (language: Language): void => {

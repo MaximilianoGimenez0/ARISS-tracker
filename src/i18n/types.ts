@@ -4,7 +4,7 @@ export type Language = 'es' | 'en' | 'pt';
 
 export type TranslationDictionary = typeof es;
 
-// Mapeo recursivo para obtener las claves como strings ('navbar.home', etc.)
+// Recursively flattens nested dictionary keys into dot-separated paths
 export type RecursiveKeyOf<TObj extends object> = {
   [TKey in keyof TObj & (string | number)]: TObj[TKey] extends any[]
     ? `${TKey}`

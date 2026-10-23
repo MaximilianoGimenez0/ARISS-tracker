@@ -5,10 +5,8 @@ import { es } from './locales/es';
 import { en } from './locales/en';
 import { pt } from './locales/pt';
 
-// Diccionarios por idioma
 const dictionaries = { es, en, pt };
 
-// Contexto inicializado en null (debe ser usado dentro del provider)
 export const LanguageContext = createContext<LanguageContextType | null>(null);
 
 interface LanguageProviderProps {
@@ -18,7 +16,6 @@ interface LanguageProviderProps {
 export const LanguageProvider = ({ children }: LanguageProviderProps) => {
   const [language, setLanguageState] = useState<Language>(getStoredLanguage());
 
-  // Función para obtener el valor anidado desde la clave (ej: 'navbar.brandTitle')
   const getNestedValue = (obj: any, path: string): string | undefined => {
     return path.split('.').reduce((acc, part) => {
       if (acc && typeof acc === 'object') {
@@ -29,7 +26,7 @@ export const LanguageProvider = ({ children }: LanguageProviderProps) => {
   };
 
   const t = useCallback((key: string, params?: Record<string, string | number>): string => {
-    const fallbacks: Language[] = [language, 'en', 'es']; // Graceful fallback
+    const fallbacks: Language[] = [language, 'en', 'es'];
     let translated: string | undefined = undefined;
 
     for (const lang of fallbacks) {
@@ -44,7 +41,7 @@ export const LanguageProvider = ({ children }: LanguageProviderProps) => {
 
     if (translated === undefined) {
       console.warn(`[i18n] Missing translation for key: "${key}"`);
-      return key; // Fallback al mismo string de la clave
+      return key;
     }
 
     if (params) {
@@ -64,7 +61,8 @@ export const LanguageProvider = ({ children }: LanguageProviderProps) => {
   const value = useMemo(() => ({
     language,
     setLanguage,
-    t: t as any // Se castea a any aquí internamente, la inferencia de tipos la provee el hook
+    // Cast to any in internal context; useTranslation enforces strict TranslationKey typing
+    t: t as any
   }), [language, setLanguage, t]);
 
   return (
