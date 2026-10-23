@@ -12,8 +12,6 @@ const SecondaryLayout = () => {
 
   return (
     <div className={styles.layoutContainer}>
-
-      {/* Navegación y HUD (Flotando sobre el contenido) */}
       <Navbar
         isExpanded={isSidebarExpanded}
         setIsExpanded={setIsSidebarExpanded}
@@ -21,9 +19,7 @@ const SecondaryLayout = () => {
         setIsMobileOpen={setIsMobileOpen}
       />
 
-      {/* Área de scroll que contiene las páginas y el footer */}
       <div className={styles.scrollArea}>
-        {/* Contenido Dinámico Principal */}
         <main className={styles.mainContent}>
           <div key={location.pathname} className={styles.pageTransition}>
             <Outlet />
@@ -32,7 +28,6 @@ const SecondaryLayout = () => {
         
         <Footer />
       </div>
-
     </div>
   );
 };

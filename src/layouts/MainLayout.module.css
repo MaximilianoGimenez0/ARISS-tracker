@@ -29,9 +29,6 @@
   }
 }
 
-/* ─────────────────────────────
-   BOOT SEQUENCE SCREEN
-   ───────────────────────────── */
 .bootOverlay {
   position: fixed;
   top: 0;

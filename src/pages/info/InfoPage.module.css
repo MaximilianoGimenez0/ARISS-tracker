@@ -35,7 +35,6 @@
   gap: 3rem;
 }
 
-/* Header */
 .hero {
   text-align: left;
   border-bottom: 1px solid var(--accent-cyan-dim);
@@ -59,7 +58,6 @@
   color: var(--accent-purple);
 }
 
-/* Cards */
 .card {
   background: var(--bg-panel);
   backdrop-filter: var(--glass-filter);
@@ -112,7 +110,6 @@
   margin-bottom: 1.25rem;
 }
 
-/* TLE Display */
 .tleTerminal {
   background-color: #000;
   border-radius: 4px;
@@ -164,11 +161,9 @@
 .tagBlue {
   background-color: var(--accent-purple-glow);
   color: #c084fc;
-  /* light purple */
   border-color: var(--accent-purple);
 }
 
-/* Grid Layouts */
 .grid {
   display: grid;
   grid-template-columns: 1fr 1fr;

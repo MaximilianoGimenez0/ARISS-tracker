@@ -1,13 +1,7 @@
-// Imports
 import { useTranslation } from '@/i18n';
 import { APP_VERSION } from '@/config/constants';
 import styles from './Footer.module.css';
 
-// Componente principal
-/**
- * Footer: Barra de estado del sistema (Bottom HUD).
- * Muestra el estado operativo de los subsistemas y los datalinks de la ISS.
- */
 const Footer = () => {
   const { t } = useTranslation();
 

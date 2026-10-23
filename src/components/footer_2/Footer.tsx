@@ -1,4 +1,3 @@
-// Imports
 import { FaGithub, FaWhatsapp, FaLinkedin } from 'react-icons/fa';
 import { FiCrosshair } from 'react-icons/fi';
 import { useTranslation } from '@/i18n';
@@ -11,12 +10,6 @@ import {
 } from '@/config/constants';
 import './Footer.css';
 
-// Componente principal
-
-/**
- * Footer: Pie de página tradicional para páginas informativas y secundarias.
- * Muestra el branding de la aplicación, información del desarrollador y enlaces a redes sociales.
- */
 const Footer = () => {
   const { t } = useTranslation();
 

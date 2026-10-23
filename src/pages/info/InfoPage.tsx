@@ -1,32 +1,19 @@
-// Imports
 import styles from './InfoPage.module.css';
 import { LuBinary, LuActivity, LuGlobe, LuEye, LuRadioReceiver } from 'react-icons/lu';
 import { useTranslation } from '@/i18n';
 
-// Componente principal
-
-/**
- * InfoPage: Vista estática informativa de la aplicación.
- * Desglosa y explica paso por paso la teoría, el modelo matemático y los cálculos orbitales 
- * subyacentes que permiten a la aplicación predecir y rastrear la ISS en tiempo real, 
- * junto al cálculo del efecto Doppler.
- */
 const InfoPage = () => {
     const { t } = useTranslation();
 
-    // Render
     return (
         <div className={styles.container}>
             <div className={styles.content}>
-
-                {/* 1. Sección Hero (Encabezado principal) */}
                 <header className={styles.hero}>
                     <h1 className={styles.title}>
                         {t('info.hero.title')} <span className={styles.accentOrange}>{t('info.hero.titleAccent')}</span>
                     </h1>
                 </header>
 
-                {/* 2. Sección de Datos TLE (Explicación del origen de la información) */}
                 <section className={styles.card}>
                     <div className={styles.cardHeader}>
                         <div className={styles.iconWrapper}><LuBinary size={28} /></div>
@@ -54,7 +41,6 @@ const InfoPage = () => {
                 </section>
 
                 <div className={styles.grid}>
-                    {/* 3. Sección de Propagación SGP4 (Cálculo del movimiento) */}
                     <section className={styles.card}>
                         <div className={styles.cardHeader}>
                             <div className={styles.iconWrapper}><LuActivity size={28} /></div>
@@ -69,7 +55,6 @@ const InfoPage = () => {
                         </p>
                     </section>
 
-                    {/* 4. Sección de Transformación Espacial ECEF */}
                     <section className={styles.card}>
                         <div className={styles.cardHeader}>
                             <div className={styles.iconWrapper}><LuGlobe size={28} /></div>
@@ -92,7 +77,6 @@ const InfoPage = () => {
                 </div>
 
                 <div className={styles.grid}>
-                    {/* 5. Sección de Línea de Vista (LOS) y Trigonometría */}
                     <section className={styles.card}>
                         <div className={styles.cardHeader}>
                             <div className={styles.iconWrapper}><LuEye size={28} /></div>
@@ -114,7 +98,6 @@ const InfoPage = () => {
                         </p>
                     </section>
 
-                    {/* 6. Sección de Efecto Doppler y Modulación */}
                     <section className={styles.card}>
                         <div className={styles.cardHeader}>
                             <div className={styles.iconWrapper}><LuRadioReceiver size={28} /></div>

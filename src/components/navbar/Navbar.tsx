@@ -1,4 +1,3 @@
-// Imports
 import { NavLink, Link } from 'react-router-dom';
 import { FiGlobe, FiInfo, FiActivity, FiCpu, FiMenu } from 'react-icons/fi';
 import { useTranslation } from '@/i18n';
@@ -6,7 +5,6 @@ import LanguageSelector from '@/components/language-selector/LanguageSelector';
 
 import styles from './Navbar.module.css';
 
-// Tipos e interfaces
 interface NavbarProps {
   isExpanded?: boolean;
   setIsExpanded?: (expanded: boolean) => void;
@@ -14,10 +12,6 @@ interface NavbarProps {
   setIsMobileOpen?: (open: boolean) => void;
 }
 
-// Componente principal
-/**
- * Navbar: Command bar superior estilo HUD (Heads-Up Display).
- */
 const Navbar = ({ isMobileOpen, setIsMobileOpen }: NavbarProps) => {
   const { t } = useTranslation();
 
