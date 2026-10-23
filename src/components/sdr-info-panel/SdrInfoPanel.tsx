@@ -1,4 +1,3 @@
-// Imports
 import { useState } from 'react';
 import { FiRadio, FiCopy, FiCheck } from 'react-icons/fi';
 import { useTranslation } from '@/i18n';
@@ -6,41 +5,16 @@ import { useTranslation } from '@/i18n';
 import type { SdrStation } from '@/types/SdrStation';
 import styles from './SdrInfoPanel.module.css';
 
-// Tipos e interfaces
-
-/**
- * Propiedades del componente SdrInfoPanel.
- */
 interface SdrInfoPanelProps {
-  /** 
-   * La estación que se encuentra en línea de vista directa actualmente.
-   * Si es null, indica que la ISS no es visible desde ninguna estación. 
-   */
+  /** Current line-of-sight station, or null when the ISS is out of range. */
   station: SdrStation | null;
-  /**
-   * La frecuencia de radio procesada y ajustada por el efecto Doppler actual, como un string formatado.
-   */
   frequency: string;
 }
 
-// Componente principal
-
-/**
- * SdrInfoPanel: Panel de telemetría e información lateral.
- * Muestra los detalles de la estación en contacto y la frecuencia Doppler de recepción en vivo.
- * Provee la funcionalidad de copiar dicha frecuencia al portapapeles.
- */
 const SdrInfoPanel = ({ station, frequency }: SdrInfoPanelProps) => {
   const { t } = useTranslation();
-  // Estados
   const [copied, setCopied] = useState(false);
 
-  // Funciones auxiliares / Event Handlers
-
-  /**
-   * Maneja el evento de click para copiar la frecuencia actual de la ISS al portapapeles del sistema
-   * y muestra temporalmente un ícono de éxito.
-   */
   const handleCopy = async () => {
     try {
       await navigator.clipboard.writeText(frequency);
@@ -54,16 +28,11 @@ const SdrInfoPanel = ({ station, frequency }: SdrInfoPanelProps) => {
     }
   };
 
-  /**
-   * Maneja el click en el logo de la estación SDR para abrir un portal a dicha terminal.
-   */
   const handleOpenStationLink = () => {
     if (station && station.url) {
       window.open(station.url, '_blank', 'noopener,noreferrer');
     }
   };
-
-  // Render
 
   if (!station) {
     return (

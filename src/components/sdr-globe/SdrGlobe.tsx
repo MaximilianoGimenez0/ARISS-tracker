@@ -1,4 +1,3 @@
-// Imports
 import { useEffect, useRef, useState } from 'react';
 import Globe from 'globe.gl';
 import { FiCrosshair } from 'react-icons/fi';
@@ -12,21 +11,10 @@ import TleErrorModal from '@/components/tle-error-modal/TleErrorModal';
 import styles from './SdrGlobe.module.css';
 import { getStationFrequency, getBestStation } from '@/utils/formatFrequency';
 
-// Tipos e interfaces (No se declaran tipos locales aquí, se importan)
-
-// Constantes
 const COLOR_ACTIVE = '#00F0FF';
 const COLOR_INACTIVE = 'rgba(112, 0, 255, 0.55)';
 const ROTATION_SPEED = 0.05;
 
-// Componente principal
-
-/**
- * SdrGlobe: Representa el globo terráqueo 3D, los marcadores de las estaciones SDR
- * terrestres y la ISS orbitando en tiempo real.
- * Coordina la evaluación espacial constante para seleccionar la estación óptima
- * y calcula el efecto Doppler en la frecuencia de transmisión.
- */
 const SdrGlobe = () => {
   const { t } = useTranslation();
   const tRef = useRef(t);
@@ -35,40 +23,25 @@ const SdrGlobe = () => {
     tRef.current = t;
   }, [t]);
 
-  // Refs
   const containerRef = useRef<HTMLDivElement>(null);
   const globeRef = useRef<any>(null);
   const issPositionRef = useRef<{ lat: number; lng: number; alt: number } | null>(null);
   const prevIssForDopplerRef = useRef<{ lat: number; lng: number; alt: number } | null>(null);
   const highlightIndexRef = useRef(-1);
 
-  // Estados
   const [highlightIndex, setHighlightIndex] = useState(-1);
   const [issAvailable, setIssAvailable] = useState(false);
   const [frequency, setFrequency] = useState<string>('145.80000 MHz');
 
-  // Hooks personalizados
-
-  // hook encargado de mantener la posición de la ISS y su TLE al día (trabajo de fondo).
   const { hasTleError } = useIssPosition(globeRef, issPositionRef, () => setIssAvailable(true));
 
-  // Valores derivados
   const activeStation = sdrStations.find(s => s.id === highlightIndex) || null;
 
-  // Effects
-
-  /**
-   * Mantiene un ref sincronizado con el estado de la estación resaltada para
-   * poder leerlo sin problemas de closure en los callbacks asíncronos de Globe.gl.
-   */
+  // Keep ref in sync to avoid stale closures in Globe.gl asynchronous callbacks
   useEffect(() => {
     highlightIndexRef.current = highlightIndex;
   }, [highlightIndex]);
 
-  /**
-   * Bucle de cálculo del Efecto Doppler.
-   * Se evalúa cada 1 segundo respecto de la estación actualmente activa.
-   */
   useEffect(() => {
     if (!activeStation) {
       setFrequency(t('globe.outOfRange'));
@@ -83,9 +56,9 @@ const SdrGlobe = () => {
 
       if (prevIss) {
         const timeDeltaSeconds = 1;
-        const baseFreq = 145.800; // Frecuencia de downlink de telemetría / repetidor de la ISS (MHz)
+        const baseFreq = 145.800; // ARISS nominal VHF downlink frequency in MHz
 
-        // Se simula la altitud de la estación terrestre a nivel del mar (0) para la geometría del Doppler
+        // Assume sea-level altitude for ground station slant-range geometry
         const stationPositionForDoppler = {
           lat: activeStation.lat,
           lng: activeStation.lng,
@@ -112,11 +85,6 @@ const SdrGlobe = () => {
     };
   }, [activeStation, t]);
 
-  /**
-   * Bucle del Escáner de Visibilidad Espacial.
-   * Chequea cada 3 segundos si hay una estación con un mejor ángulo de elevación
-   * hacia la ISS, lo cual garantiza una mejor Línea de Vista (LOS).
-   */
   useEffect(() => {
     const evaluateInterval = setInterval(() => {
       const currentIss = issPositionRef.current;
@@ -141,10 +109,6 @@ const SdrGlobe = () => {
     return () => clearInterval(evaluateInterval);
   }, []);
 
-  /**
-   * Inicialización e inyección del lienzo (canvas) WebGL mediante Globe.gl.
-   * Configura las luces, atmósferas, estilos de los marcadores y HTML overlays.
-   */
   useEffect(() => {
     if (!containerRef.current) return;
 
@@ -155,8 +119,6 @@ const SdrGlobe = () => {
       .showAtmosphere(true)
       .atmosphereColor('#38bdf8')
       .atmosphereAltitude(0.22)
-
-      // SDR STATIONS (Render de Puntos)
       .pointsData(sdrStations)
       .pointLat('lat')
       .pointLng('lng')
@@ -208,11 +170,12 @@ const SdrGlobe = () => {
       .width(containerRef.current.clientWidth)
       .height(containerRef.current.clientHeight);
 
-    // ISS (SVG + HOVER TOOLTIP como Elemento HTML para evitar borrosidad del Canvas 3D)
+    // Render ISS marker as HTML overlay to preserve SVG sharpness and avoid Canvas 3D scaling blur
     globe
       .htmlElementsData([])
       .htmlLat('lat')
       .htmlLng('lng')
+      // Elevation offset floats marker above orbital path layer
       .htmlAltitude(0.22)
       .htmlElement((d: any) => {
         const el = document.createElement('div');
@@ -256,7 +219,6 @@ const SdrGlobe = () => {
         el.style.pointerEvents = isVisible ? 'auto' : 'none';
       });
 
-    // ORBITAL PATH (La estela que deja la ISS detrás)
     globe
       .pathsData([])
       .pathPointLat((p: any) => p.lat)
@@ -265,7 +227,6 @@ const SdrGlobe = () => {
       .pathColor(() => 'rgba(56, 191, 248, 0)')
       .pathStroke(() => 2.5);
 
-    // LABELS (Texto para la estación activa)
     globe
       .labelsData(sdrStations.filter(s => s.id === highlightIndexRef.current))
       .labelLat('lat')
@@ -276,7 +237,6 @@ const SdrGlobe = () => {
       .labelResolution(8)
       .labelAltitude(0);
 
-    // RINGS (Pulsos de onda de radio sobre la ISS)
     globe
       .ringsData([])
       .ringColor(() => 'rgba(0, 240, 255, 0.15)')
@@ -284,7 +244,6 @@ const SdrGlobe = () => {
       .ringPropagationSpeed(0.9)
       .ringRepeatPeriod(2000);
 
-    // CONTROLES DE CÁMARA
     const controls = globe.controls();
     controls.autoRotate = true;
     controls.autoRotateSpeed = ROTATION_SPEED;
@@ -294,7 +253,6 @@ const SdrGlobe = () => {
     globeRef.current = globe;
     const container = containerRef.current;
 
-    // Ajuste responsivo automático si el div contenedor cambia de tamaño
     const resizeObserver = new ResizeObserver((entries) => {
       for (const entry of entries) {
         const { width, height } = entry.contentRect;
@@ -316,10 +274,6 @@ const SdrGlobe = () => {
     };
   }, []);
 
-  /**
-   * Actualización Dinámica del estado gráfico WebGL en base a React State.
-   * Ajusta colores, alturas, tamaños y encuadre (Point Of View) cuando la estación óptima cambia.
-   */
   useEffect(() => {
     const globe = globeRef.current;
     if (!globe) return;
@@ -337,7 +291,6 @@ const SdrGlobe = () => {
     globe.labelsData(sdrStations.filter(s => s.id === highlightIndex));
 
     if (activeStation) {
-      // Si entra una estación a foco, girar el globo para observarla desde arriba
       globe.pointOfView(
         { lat: activeStation.lat, lng: activeStation.lng, altitude: 1.6 },
         1200
@@ -345,11 +298,6 @@ const SdrGlobe = () => {
     }
   }, [highlightIndex, activeStation]);
 
-  // Funciones auxiliares / Event Handlers
-
-  /**
-   * Fuerza la rotación del globo de forma manual para enfocar la posición actual de la ISS.
-   */
   const focusISS = () => {
     const globe = globeRef.current;
     const iss = issPositionRef.current;
@@ -361,7 +309,6 @@ const SdrGlobe = () => {
     );
   };
 
-  // Render
   return (
     <div className={styles.dashboardContainer}>
       <div className={styles.globeWrapper}>

@@ -1,23 +1,13 @@
-// Imports
 import { FiAlertTriangle, FiRefreshCw } from 'react-icons/fi';
 import { useTranslation } from '@/i18n';
 import styles from './TleErrorModal.module.css';
 
-// Tipos e interfaces
 interface TleErrorModalProps {
-  /** Indica si el modal debe ser visible */
   isOpen: boolean;
-  /** Callback opcional que se ejecuta al presionar el botón de recarga (por defecto recarga la página) */
+  /** Invoked when reload is triggered; reloads the window if omitted. */
   onReload?: () => void;
 }
 
-// Componente principal
-
-/**
- * TleErrorModal: Modal de advertencia crítica de enlace de datos.
- * Se muestra cuando la conexión a la API de ARISS falla o supera el tiempo de espera (5s),
- * bloqueando el rastreo orbital y solicitando al usuario reiniciar el sistema.
- */
 const TleErrorModal = ({ isOpen, onReload }: TleErrorModalProps) => {
   const { t } = useTranslation();
 
@@ -34,7 +24,6 @@ const TleErrorModal = ({ isOpen, onReload }: TleErrorModalProps) => {
   return (
     <div className={styles.modalOverlay} role="alertdialog" aria-modal="true">
       <div className={styles.modalCard}>
-        {/* Línea de escaneo animada estilo HUD */}
         <div className={styles.scannerLine} />
 
         <div className={styles.iconContainer}>
