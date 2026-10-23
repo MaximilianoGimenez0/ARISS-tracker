@@ -13,7 +13,7 @@ export const DEVELOPER_NAME = 'Maximiliano Giménez';
 export const DEVELOPER_SOCIALS = {
     github: 'https://github.com/MaximilianoGimenez0',
     whatsapp: 'https://wa.me/5491140675852',
-    linkedin: 'https://www.linkedin.com/in/maximiliano-gim%C3%A9nez-2644b0338/',
+    linkedin: 'https://www.linkedin.com/in/maximilianogimenez0/',
 } as const;
 
 export const GITHUB_URL = DEVELOPER_SOCIALS.github;
